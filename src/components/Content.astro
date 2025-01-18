@@ -1,0 +1,63 @@
+---
+import { getGitHubRepos } from '../lib/projects'
+import { repoIds } from '../lib/repoIds'
+const repos = await getGitHubRepos(repoIds)
+---
+
+<div class="w-full flex flex-col items-center gap-2">
+    <h2 class="text-center text-2xl font-bold font-poppins">Embrace Daily Growth</h2>
+    <article class="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
+        {
+            repos.map((repo, index) => (
+                <section
+                    class="w-full border border-gray-700 rounded-lg shadow-md overflow-hidden h-full section-animation"
+                    style={`animation-delay: ${index * 0.2}s`}
+                >
+                    <a
+                        href={repo.html_url}
+                        target="_blank"
+                        rel="noopener"
+                        class="block overflow-hidden group"
+                    >
+                        <img
+                            src={`/Projects/images/${repo.id}.png`}
+                            alt={repo.name}
+                            class="min-w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110 group-hover:translate-y-[-10px]"
+                        />
+                    </a>
+                    <div class="p-4 flex flex-col gap-2 flex-grow">
+                        <h2 class="text-xl font-bold font-playwrite">{repo.name}</h2>
+                        <p class="text-sm text-gray-300 font-poppins">{repo.description}</p>
+                        <div class="mt-auto">
+                            <a
+                                href={repo.html_url}
+                                target="_blank"
+                                rel="noopener"
+                                class="relative before:absolute before:content-[''] before:left-0 before:bottom-[-5px] before:h-[1.25px] before:w-0 before:bg-[repeating-linear-gradient(to_right,var(--dot-color,rgba(255,255,255,0.75)),var(--dot-color,rgba(255,255,255,0.75))_2px,transparent_2px,transparent_3px)] before:transition-all before:duration-300 before:ease-in-out hover:before:w-full w-fit text-sm text-emerald-400 hover:text-emerald-600"
+                            >
+                                View on Github
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            ))
+        }
+    </article>
+</div>
+
+<style>
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .section-animation {
+        animation: fadeInUp 1.8s ease-out forwards;
+    }
+</style>
