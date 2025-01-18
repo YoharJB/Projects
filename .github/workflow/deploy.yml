@@ -19,16 +19,20 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
-                  node-version: '23'
+                  node-version: '20'
+                  cache: 'pnpm'
+
+            - name: Install pnpm
+              run: npm install -g pnpm
 
             - name: Install dependencies
-              run: npm install
-
-            -  name: Disable Jekyll
-              run: echo "" > ./dist/.nojekyll
+              run: pnpm install
 
             - name: Build the Astro project
-              run: npm run build
+              run: pnpm build
+
+            - name: Disable Jekyll
+              run: echo "" > ./dist/.nojekyll
 
             - name: Deploy to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
