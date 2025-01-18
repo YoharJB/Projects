@@ -24,6 +24,9 @@ jobs:
             - name: Install dependencies
               run: npm install
 
+            -  name: Disable Jekyll
+              run: echo "" > ./dist/.nojekyll
+
             - name: Build the Astro project
               run: npm run build
 
